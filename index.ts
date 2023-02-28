@@ -1,4 +1,4 @@
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from 'events';
 import c from './c';
 export const event = new EventEmitter();
 
