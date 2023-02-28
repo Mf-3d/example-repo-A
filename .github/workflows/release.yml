@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Clone Docs Repo
-        run: git clone https://github.com/Mf-3d/example-repo-B.git
+        run: git clone https://Mf-3d@github.com/Mf-3d/example-repo-B.git
       - name: Install Dependencies and Build Docs
         working-directory: ./example-repo-B
         run: |
