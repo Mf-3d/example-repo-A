@@ -10,15 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout A code
+      - name: Create workspace
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+        run: |
+          mkdir -p example-repo-B/example-repo-A
+          ls -la
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Clone repo A
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.release.tag_name }}
+          repository: Mf-3d/example-repo-A
+          path: example-repo-B/A/repo-A
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Copy A code to B
         run: |
-          mkdir ../example-repo-B/A
-          cp -r * ../example-repo-B/A
+          mkdir ../example-repo-B/example-repo-A
+          cp -r * ../example-repo-B/example-repo-A
 
       - name: Checkout B code
         uses: actions/checkout@v2
