@@ -29,6 +29,11 @@ jobs:
       - name: Cleanup
         run: rm -rf ./example-repo-B
 
+    - name: Set git config
+      run: |
+        git config --local user.email "mf7cli120@icloud.com"
+        git config --local user.name "Mf-3d"
+
       - name: Commit and push docs changes
         run: |
           git add .
