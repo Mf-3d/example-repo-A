@@ -28,7 +28,7 @@ jobs:
 
       - name: Copy build files to /docs
         run: |
-          rm -rf ./docs
+          if [ -d "./docs" ]; then rm -rf ./docs; fi
           mkdir ./docs
           cp -R ./example-repo-B/build/* ./docs
         
