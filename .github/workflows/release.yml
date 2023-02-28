@@ -30,15 +30,12 @@ jobs:
         run: rm -rf ./example-repo-B
 
       - name: Commit and push docs changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "📝 update docs for release ${{ github.event.release.tag_name }}!"
-          commit_user_name: "GitHub Actions"
-          commit_user_email: "actions@github.com"
-          commit_author: "Mf-3d <Mf-3d@users.noreply.github.com>"
-          commit_options: "--no-gpg-sign"
-          branch: "main"
-          add_options: "-A"
-          push_options: "HEAD:main"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: |
+          git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          if (git diff --shortstat | grep '[0-9]'); then \
+            git add .; \
+            git commit -m "📝 update docs for release ${{ github.event.release.tag_name }}!"; \
+            git push origin HEAD:${GITHUB_REF}; \
+          fi
