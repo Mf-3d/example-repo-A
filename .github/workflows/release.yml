@@ -38,4 +38,4 @@ jobs:
         run: |
           git add .
           git commit  --allow-empty -m "📝 update docs for release ${{ github.event.release.tag_name }}!" -a
-          git push origin main
+          git push origin HEAD:main
