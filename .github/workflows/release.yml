@@ -29,6 +29,7 @@ jobs:
       - name: Copy build files to /docs
         run: |
           rm -rf ./docs
+          mkdir ./docs
           cp -R ./example-repo-B/build/* ./docs
         
       - name: Cleanup
