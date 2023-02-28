@@ -38,5 +38,5 @@ jobs:
         run: |
           git add .
           git commit -m "📝 update docs for release ${{ github.event.release.tag_name }}!" -a
-          git pull
+          git pull ${GITHUB_REF} main
           git push origin ${GITHUB_REF}
