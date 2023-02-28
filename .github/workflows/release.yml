@@ -9,10 +9,18 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout A
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          
+      - name: Checkout B
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          repository: Mf-3d/example-repo-B
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Clone Docs Repo
         run: git clone https://Mf-3d@github.com/Mf-3d/example-repo-B.git
       - name: Install Dependencies and Build Docs
