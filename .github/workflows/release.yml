@@ -24,7 +24,7 @@ jobs:
           yarn build
 
       - name: Copy build files to /docs
-        run: cp -R ./example-repo-B/build/static ./docs
+        run: cp -R ./example-repo-B/build ./docs
         
       - name: Cleanup
         run: rm -rf ./example-repo-B
