@@ -6,49 +6,27 @@ on:
     types: [released]
 
 jobs:
-  build_docs:
+  release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Create workspace
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-        run: |
-          mkdir -p example-repo-B/example-repo-A
-          ls -la
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Clone repo A
+      - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.release.tag_name }}
-          repository: Mf-3d/example-repo-A
-          path: example-repo-B/A/repo-A
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Copy A code to B
-        run: |
-          mkdir ../example-repo-B/example-repo-A
-          cp -r * ../example-repo-B/example-repo-A
-
-      - name: Checkout B code
-        uses: actions/checkout@v2
-        with:
-          repository: Mf-3d/example-repo-B
-          ref: main
-
-      - name: Install dependencies and build
-        working-directory: example-repo-B
+          fetch-depth: 0
+      - name: Clone Docs Repo
+        run: git clone https://github.com/Mf-3d/example-repo-B.git
+      - name: Install Dependencies and Build Docs
+        working-directory: ./example-repo-B
         run: |
           yarn install
           yarn build
-
       - name: Commit and push docs changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit-message: "📝 update docs for release ${{ github.event.release.tag_name }}!"
-          commit-user-name: "thinkerAI bot"
+          commit-message: "docs: update docs for release ${{ github.event.release.tag_name }}"
+          commit-user-name: "GitHub Actions"
           commit-user-email: "actions@github.com"
+          commit-branch: "main"
+          commit-allow-empty: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
