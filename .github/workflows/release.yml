@@ -23,8 +23,12 @@ jobs:
           yarn install
           yarn build
 
+
       - name: Copy build files to /docs
         run: cp -R ./example-repo-B/build ./docs
+
+      - name: Cleanup
+        run: rm -rf ./example-repo-B
 
       - name: Commit and push docs changes
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -34,9 +38,5 @@ jobs:
           commit-user-email: "actions@github.com"
           commit-branch: "main"
           commit-allow-empty: true
-          push-options: null
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Cleanup
-        run: rm -rf ./example-repo-B
