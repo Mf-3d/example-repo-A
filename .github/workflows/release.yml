@@ -1,0 +1,41 @@
+
+name: Release Workflow
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout A code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Copy A code to B
+        run: |
+          mkdir ../example-repo-B/A
+          cp -r * ../example-repo-B/A
+
+      - name: Checkout B code
+        uses: actions/checkout@v2
+        with:
+          repository: Mf-3d/example-repo-B
+          ref: main
+
+      - name: Install dependencies and build
+        uses: octopus-app/action-docusaurus@v1
+        with:
+          install-command: yarn install
+          build-command: yarn build
+          docs-dir: example-repo-A/docs
+
+      - name: Commit and push docs changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit-message: "📝 update docs for release ${{ github.event.release.tag_name }}!"
+          commit-user-name: "thinkerAI bot"
+          commit-user-email: "actions@github.com"
