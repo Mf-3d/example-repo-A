@@ -24,7 +24,7 @@ jobs:
           yarn build
 
       - name: Copy build files to /docs
-        run: cp -R ./example-repo-B/build ./docs
+        run: cp -R ./example-repo-B/build/static ./docs
         
       - name: Cleanup
         run: rm -rf ./example-repo-B
@@ -37,5 +37,5 @@ jobs:
       - name: Commit and push docs changes
         run: |
           git add .
-          git commit -m "📝 update docs for release ${{ github.event.release.tag_name }}!" -a
+          git commit  --allow-empty -m "📝 update docs for release ${{ github.event.release.tag_name }}!" -a
           git push origin main
