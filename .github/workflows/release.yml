@@ -14,10 +14,13 @@ jobs:
           fetch-depth: 0
           submodules: 'recursive'
 
+      - name: Install Dependencies (example-repo-A)
+        run: yarn install
+
       - name: Clone Docs Repo
         run: git clone https://Mf-3d@github.com/Mf-3d/example-repo-B.git
 
-      - name: Install Dependencies and Build Docs
+      - name: Install Dependencies and Build Docs (example-repo-B)
         working-directory: ./example-repo-B
         run: |
           yarn install
