@@ -27,11 +27,10 @@ jobs:
           ref: main
 
       - name: Install dependencies and build
-        uses: octopus-app/action-docusaurus@v1
-        with:
-          install-command: yarn install
-          build-command: yarn build
-          docs-dir: example-repo-A/docs
+        working-directory: example-repo-B
+        run: |
+          yarn install
+          yarn build
 
       - name: Commit and push docs changes
         uses: stefanzweifel/git-auto-commit-action@v4
